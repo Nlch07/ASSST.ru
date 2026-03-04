@@ -1,0 +1,108 @@
+body {
+  background: white;
+  font-family: -apple-system, system-ui, sans-serif;
+  margin: 0; padding: 20px;
+}
+
+.main-title {
+  font-size: 36px; /* Было 40px */
+  text-align: center;
+  margin: 70px 0 20px;
+  font-weight: bold;
+}
+
+.container {
+  margin-top: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.input-hint { font-size: 13px; color: #888; text-align: center; margin-bottom: 0px;}
+
+.row { display: flex; justify-content: center; gap: 10px; }
+
+/* Уменьшенные поля ввода времени */
+input {
+  font-size: 44px; /* Было 55px */
+  text-align: center;
+  border: none;
+  background: none;
+  color: #000; /* Черный вместо синего */
+  font-weight: bold;
+  outline: none;
+  width: 90px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+input:focus { border-bottom-color: #000; }
+
+.input-sep { font-size: 40px; color: #ccc; font-weight: bold; margin-top: -5px;}
+
+#distance { width: 140px; margin-top: 5px;}
+
+.label { font-size: 20px; font-weight: bold; color: black; margin-left: -5px; padding-top: 15px;}
+
+.unit-button {
+  background: #000; color: white; border: none; border-radius: 6px;
+  padding: 8px 15px; font-size: 18px; font-weight: bold; cursor: pointer;
+}
+
+/* Результат (чистый, черно-белый) */
+.result { text-align: center; margin-top: 30px; }
+
+.res-row { margin-bottom: 10px; }
+
+.val {
+  color: #000; /* Черный */
+  font-size: 50px; /* Было 60px */
+  font-weight: bold;
+}
+
+#speedOut { font-size: 36px; } /* Скорость км/ч меньше темпа */
+
+.unit { color: #000; font-size: 20px; margin-left: 5px; }
+
+/* Сетка прогнозов (черно-белая) */
+.stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  width: 100%; max-width: 300px; margin-top: 20px;
+}
+
+.stat-box {
+  background: #f8f9fa; padding: 10px; border-radius: 8px;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.reset-action {
+    margin-top: 25px;      /* Отступ сверху от таблицы */
+    font-size: 13px;       /* Небольшой размер, чтобы не отвлекать */
+    font-weight: 900;      /* Твой любимый жирный шрифт */
+    color: #888;           /* Серый цвет (в покое) */
+    text-transform: uppercase; /* Все буквы большие */
+    letter-spacing: 2px;   /* Расстояние между буквами для стиля */
+    cursor: pointer;       /* Чтобы при наведении был "пальчик" */
+    text-align: center;    /* Центрируем */
+    transition: 0.2s;      /* Плавный переход цвета */
+}
+
+.reset-action:active {
+    color: #000;           /* При нажатии становится черной (или белой в темной теме) */
+    transform: scale(0.95); /* Эффект легкого сжатия при клике */
+}
+
+.stat-label { font-size: 11px; color: #888; }
+
+.stat-val { font-size: 16px; font-weight: bold; color: #333; }
+
+/* Шапка и Меню (стандартные, черно-белые) */
+.burger-header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: white; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1000; }
+.menu-logo { font-weight: 900; color: #000; font-size: 24px; margin-left: 10px; }
+.burger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 5px; }
+.burger-line { width: 25px; height: 3px; background: #000; }
+.menu-items { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background: white; transform: translateX(-100%); transition: 0.3s; z-index: 999; padding-top: 80px;}
+.menu-items.show { transform: translateX(0); }
+.ss { padding: 0 25px 20px; font-weight: bold; font-size: 24px; color: #000; }
+.menu-item { padding: 15px 25px; font-size: 18px; border-bottom: 1px solid #f9f9f9; }
+.menu-item.active { color: #000; font-weight: bold; background: #f0f6ff; }

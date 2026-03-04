@@ -2,381 +2,82 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business OS | Рубли в сутки</title>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <meta name="yandex-verification" content="3341a0851d8b4c2a" />
-    <style>
-        :root {
-            --primary: #1a73e8;
-            --bg: #f8f9fa;
-            --surface: #ffffff;
-            --text: #202124;
-            --outline: #dadce0;
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            
-            /* Цвета категорий */
-            --grad-red: linear-gradient(135deg, #f44336, #d32f2f);
-            --grad-blue: linear-gradient(135deg, #2196f3, #1976d2);
-            --grad-yellow: linear-gradient(135deg, #ffb300, #f57c00);
-            --grad-green: linear-gradient(135deg, #4caf50, #388e3c);
-        }
-
-        [data-theme="dark"] {
-            --bg: #121212;
-            --surface: #1e1e1e;
-            --text: #e8eaed;
-            --outline: #3c4043;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Google Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .app-wrapper {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            min-height: 100vh;
-        }
-
-        @media (max-width: 900px) {
-            .app-wrapper { grid-template-columns: 1fr; }
-            aside { display: none; }
-            header.mobile-nav { display: flex; }
-        }
-
-        aside {
-            background: var(--surface);
-            border-right: 1px solid var(--outline);
-            padding: 24px;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            box-sizing: border-box;
-        }
-
-        header.mobile-nav {
-            display: none;
-            background: var(--surface);
-            padding: 16px;
-            border-bottom: 1px solid var(--outline);
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        main {
-            padding: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .business-card {
-            background: var(--surface);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--outline);
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .biz-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--outline);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .biz-title-group h2 { margin: 0; font-size: 20px; display: flex; align-items: center; gap: 8px; }
-
-        .emp-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
-            padding: 20px;
-        }
-
-        @media (max-width: 500px) {
-            .emp-grid { grid-template-columns: 1fr; }
-        }
-
-        .emp-card {
-            padding: 20px;
-            border-radius: var(--radius-md);
-            color: white;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            transition: transform 0.2s;
-        }
-
-        .emp-card.red { background: var(--grad-red); }
-        .emp-card.blue { background: var(--grad-blue); }
-        .emp-card.yellow { background: var(--grad-yellow); }
-        .emp-card.green { background: var(--grad-green); }
-
-        .emp-salary { font-size: 20px; font-weight: 700; margin-top: 10px; }
-        .emp-role { opacity: 0.9; font-size: 14px; }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 25px;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: inherit;
-        }
-
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-outline { background: transparent; border: 1px solid var(--outline); color: var(--text); }
-
-        .actions-overlay {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 5px;
-        }
-
-        .mini-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .stat-box {
-            background: var(--bg);
-            padding: 16px;
-            border-radius: var(--radius-md);
-            margin-bottom: 12px;
-        }
-        .stat-label { font-size: 12px; opacity: 0.6; text-transform: uppercase; }
-        .stat-value { font-size: 18px; font-weight: 700; color: var(--primary); }
-
-        #modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .modal-content {
-            background: var(--surface);
-            padding: 30px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 400px;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid var(--outline);
-            border-radius: 8px;
-            background: var(--bg);
-            color: var(--text);
-            box-sizing: border-box;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Калькулятор темпа | Подсчет скороси бега</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="mobile-nav">
-    <div style="font-weight: 700; color: var(--primary);">Business OS assst a52 73</div>
-    <button class="btn btn-primary" onclick="openBizModal()">+</button>
-</header>
+  <div class="burger-header">
+    <div class="menu-logo">RUN</div>
+    <button class="burger-btn" id="burgerBtn">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+  </div>
 
-<div class="app-wrapper">
-    <aside>
-        <h2 style="color: var(--primary); margin-bottom: 30px;">Управление</h2>
+  <nav class="menu-items" id="menuItems">
+    <div class="ss">Меню</div>
+    <div class="menu-item active">Калькулятор темпа</div>
+    <div class="menu-item" onclick="location.reload()">Сбросить всё</div>
+  </nav>
+
+  <div class="container" id="speedContainer">
+    
+    <p class="input-hint">Введите время:</p>
+    <div class="row time-row">
+      <div class="input-group">
+        <input id="minutes" type="number" inputmode="numeric" placeholder="00">
+        <span class="label">мин</span>
+      </div>
+      <div class="input-sep">:</div>
+      <div class="input-group">
+        <input id="seconds" type="number" inputmode="numeric" placeholder="00">
+        <span class="label">сек</span>
+      </div>
+    </div>
+
+    <p class="input-hint" style="margin-top: 15px;">Укажите дистанцию:</p>
+    <div class="input-group main-dist">
+      <input id="distance" type="number" inputmode="decimal" value="1">
+      <button id="unitToggle" class="unit-button">км</button>
+    </div>
+
+    <div class="result">
+      <div class="res-row">
+        <span class="val" id="paceOut">0:00</span>
+        <span class="unit">мин/км</span>
+      </div>
+      <div class="res-row speed-row">
+        <span class="val" id="speedOut">0</span>
+        <span class="unit">км/ч</span>
+      </div>
+    </div>
+
+    <div class="reset-action" onclick="resetAll()">Сбросить всё</div>
+   
+    <div class="stats-grid">
         <div class="stat-box">
-            <div class="stat-label">Сотрудников</div>
-            <div id="stat-count" class="stat-value">0</div>
+            <span class="stat-label">1 км</span>
+            <span class="stat-val" id="t1k">0:00</span>
         </div>
         <div class="stat-box">
-            <div class="stat-label">ФОТ (в сутки)</div>
-            <div id="stat-payroll" class="stat-value">₽0</div>
+            <span class="stat-label">5 км</span>
+            <span class="stat-val" id="t5k">0:00</span>
         </div>
-        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="openBizModal()">+ Новый бизнес</button>
-        <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" onclick="toggleTheme()">🌓 Тема</button>
-    </aside>
-
-    <main id="app-content"></main>
-</div>
-
-<div id="modal" onclick="if(event.target==this) closeMenu()">
-    <div class="modal-content">
-        <h3 id="modal-title">Редактирование</h3>
-        <div id="modal-fields"></div>
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-            <button class="btn btn-outline" style="flex: 1" onclick="closeMenu()">Отмена</button>
-            <button class="btn btn-primary" style="flex: 1" id="modal-save">Сохранить</button>
+        <div class="stat-box">
+            <span class="stat-label">10 км</span>
+            <span class="stat-val" id="t10k">0:00</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-label">21.1 км</span>
+            <span class="stat-val" id="t21k">0:00</span>
         </div>
     </div>
-</div>
 
-<script>
-    let data = JSON.parse(localStorage.getItem('biz_db_v2')) || [
-        { id: 1, name: 'Мой Первый Бизнес', type: 'blue', dailyExp: 5000, employees: [] }
-    ];
+  </div>
 
-    function save() {
-        localStorage.setItem('biz_db_v2', JSON.stringify(data));
-        render();
-    }
-
-    function render() {
-        const container = document.getElementById('app-content');
-        container.innerHTML = '';
-        let totalStuff = 0;
-        let totalMoney = 0;
-
-        data.forEach(biz => {
-            const bizPayroll = biz.employees.reduce((s, e) => s + Number(e.salary), 0);
-            totalStuff += biz.employees.length;
-            totalMoney += bizPayroll;
-
-            const bizSection = document.createElement('section');
-            bizSection.className = 'business-card';
-            bizSection.innerHTML = `
-                <div class="biz-header">
-                    <div class="biz-title-group">
-                        <h2>${biz.name}</h2>
-                        <div style="font-size:12px; opacity:0.6">Расходы: ₽${Number(biz.dailyExp).toLocaleString()}/сут | ФОТ: ₽${bizPayroll.toLocaleString()}/сут</div>
-                    </div>
-                    <div style="display:flex; gap:8px;">
-                        <button class="btn btn-outline" onclick="openBizModal(${biz.id})" title="Редактировать">✏️</button>
-                        <button class="btn btn-outline" onclick="deleteBiz(${biz.id})" title="Удалить">🗑️</button>
-                        <button class="btn btn-primary" onclick="addEmp(${biz.id})">+ Сотрудник</button>
-                    </div>
-                </div>
-                <div class="emp-grid">
-                    ${biz.employees.length === 0 ? '<div style="padding:20px; opacity:0.5">Нет сотрудников</div>' : ''}
-                    ${biz.employees.map(emp => `
-                        <div class="emp-card ${biz.type}">
-                            <div class="actions-overlay">
-                                <button class="mini-btn" onclick="addEmp(${biz.id}, ${emp.id})">✏️</button>
-                                <button class="mini-btn" onclick="deleteEmp(${biz.id}, ${emp.id})">✕</button>
-                            </div>
-                            <div class="emp-role">${emp.role}</div>
-                            <div style="font-weight:500; font-size:18px;">${emp.name}</div>
-                            <div class="emp-salary">₽${Number(emp.salary).toLocaleString()} <small style="font-weight:400; font-size:12px">/сутки</small></div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            container.appendChild(bizSection);
-        });
-
-        document.getElementById('stat-count').innerText = totalStuff;
-        document.getElementById('stat-payroll').innerText = `₽${totalMoney.toLocaleString()}`;
-    }
-
-    const modal = document.getElementById('modal');
-    function closeMenu() { modal.style.display = 'none'; }
-
-    function openBizModal(bizId = null) {
-        const biz = data.find(b => b.id === bizId);
-        document.getElementById('modal-title').innerText = biz ? 'Настройки бизнеса' : 'Новый бизнес';
-        document.getElementById('modal-fields').innerHTML = `
-            <label style="font-size:12px">Название:</label>
-            <input id="f-name" placeholder="Название бизнеса" value="${biz ? biz.name : ''}">
-            <label style="font-size:12px">Цвет карточки:</label>
-            <select id="f-type">
-                <option value="red" ${biz?.type === 'red' ? 'selected' : ''}>Красный</option>
-                <option value="blue" ${biz?.type === 'blue' ? 'selected' : ''}>Синий</option>
-                <option value="yellow" ${biz?.type === 'yellow' ? 'selected' : ''}>Желтый</option>
-                <option value="green" ${biz?.type === 'green' ? 'selected' : ''}>Зеленый</option>
-            </select>
-            <label style="font-size:12px">Прочие расходы (₽/сутки):</label>
-            <input id="f-exp" type="number" placeholder="Затраты" value="${biz ? biz.dailyExp : ''}">
-        `;
-        document.getElementById('modal-save').onclick = () => {
-            const payload = {
-                name: document.getElementById('f-name').value || 'Без названия',
-                type: document.getElementById('f-type').value,
-                dailyExp: document.getElementById('f-exp').value || 0
-            };
-            if(bizId) {
-                Object.assign(biz, payload);
-            } else {
-                data.push({...payload, id: Date.now(), employees: []});
-            }
-            save(); closeMenu();
-        };
-        modal.style.display = 'flex';
-    }
-
-    function addEmp(bizId, empId = null) {
-        const biz = data.find(b => b.id === bizId);
-        const emp = empId ? biz.employees.find(e => e.id === empId) : null;
-        document.getElementById('modal-title').innerText = emp ? 'Изменить сотрудника' : 'Новый сотрудник';
-        document.getElementById('modal-fields').innerHTML = `
-            <input id="e-name" placeholder="Имя" value="${emp ? emp.name : ''}">
-            <input id="e-role" placeholder="Должность" value="${emp ? emp.role : ''}">
-            <input id="e-salary" type="number" placeholder="Зарплата в СУТКИ (₽)" value="${emp ? emp.salary : ''}">
-        `;
-        document.getElementById('modal-save').onclick = () => {
-            const payload = {
-                name: document.getElementById('e-name').value || 'Сотрудник',
-                role: document.getElementById('e-role').value || 'Рабочий',
-                salary: document.getElementById('e-salary').value || 0
-            };
-            if(empId) Object.assign(emp, payload);
-            else biz.employees.push({...payload, id: Date.now()});
-            save(); closeMenu();
-        };
-        modal.style.display = 'flex';
-    }
-
-    window.deleteBiz = (id) => { 
-        if(confirm('Вы уверены, что хотите удалить весь бизнес и всех его сотрудников?')) { 
-            data = data.filter(b => b.id !== id); 
-            save(); 
-        } 
-    };
-
-    window.deleteEmp = (bId, eId) => { 
-        if(confirm('Уволить сотрудника?')) {
-            const biz = data.find(b => b.id === bId);
-            biz.employees = biz.employees.filter(e => e.id !== eId);
-            save();
-        }
-    };
-
-    function toggleTheme() {
-        const b = document.body;
-        b.setAttribute('data-theme', b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
-
-    render();
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
