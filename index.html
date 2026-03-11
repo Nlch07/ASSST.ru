@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta name="description" content="Рассчитайте темп бега, скорость и время на дистанциях от 1 км до марафона. Удобный инструмент для бегунов на assst.ru.">
+    <meta name="yandex-verification" content="3341a0851d8b4c2a" />
+    <meta name="google-site-verification" content="ТВОЙ_КОД_ИЗ_GOOGLE" />
+    <meta name="theme-color" content="#1a1a1b">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Калькулятор темпа | Подсчет скороси бега</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="burger-header">
-    <div class="menu-logo">RUN</div>
-    <button class="burger-btn" id="burgerBtn">
-      <span class="burger-line"></span>
-      <span class="burger-line"></span>
-      <span class="burger-line"></span>
-    </button>
-  </div>
-
-  <nav class="menu-items" id="menuItems">
-    <div class="ss">Меню</div>
-    <div class="menu-item active">Калькулятор темпа</div>
-    <div class="menu-item" onclick="location.reload()">Сбросить всё</div>
-  </nav>
+  <div class="controls-panel">
+    <button id="themeToggle" class="control-btn">🌙</button>
+    <button id="langToggle" class="control-btn">EN</button>
+</div>
 
   <div class="container" id="speedContainer">
     
@@ -76,7 +71,67 @@
         </div>
     </div>
 
+<section class="pace-info">
+    <h3>Ориентиры по темпу</h3>
+    
+    <div class="info-block">
+        <span class="info-label">Новичок (Легкий бег)</span>
+        <span class="info-data">6:30 — 8:00 мин/км</span>
+        <p>Темп, при котором можно свободно разговаривать. Идеально для начала пути и жиросжигания.</p>
+    </div>
+
+    <div class="info-block">
+        <span class="info-label">Средний уровень (Фитнес)</span>
+        <span class="info-data">5:00 — 6:00 мин/км</span>
+        <p>Уверенный бег для тех, кто тренируется 2-3 раза в неделю. Позволяет пробежать 10 км без остановок.</p>
+    </div>
+
+    <div class="info-block">
+        <span class="info-label">Продвинутый / Профи</span>
+        <span class="info-data">3:30 — 4:30 мин/км</span>
+        <p>Темп соревнований и скоростных тренировок. Требует системной подготовки и выносливости.</p>
+    </div>
+</section>
+
+<section class="records-info">
+    <h3>Мировые рекорды</h3>
+    
+      <div class="record-item">
+      <span class="rec-dist">1 КМ</span>
+      <span class="record-data">2:11.96</span>
+      <span class="rec-stats">Темп: 2:12 мин/км | Скорость: 27.3 км/ч</span>
+      <p>Ноа Нгени (Кения), Риети, 1999</p>
   </div>
+
+    <div class="record-item">
+        <span class="rec-dist">5 КМ</span>
+        <span class="record-data">12:35.36</span>
+        <span class="rec-stats">Темп: 2:31 мин/км | Скорость: 23.8 км/ч</span>
+        <p>Джошуа Чептегеи (Уганда), Монако, 2020</p>
+    </div>
+
+    <div class="record-item">
+        <span class="rec-dist">10 КМ</span>
+        <span class="record-data">26:11.00</span>
+        <span class="rec-stats">Темп: 2:37 мин/км | Скорость: 22.9 км/ч</span>
+        <p>Джошуа Чептегеи (Уганда), Валенсия, 2020</p>
+    </div>
+
+    <div class="record-item">
+        <span class="rec-dist">21.1 КМ (Полумарафон)</span>
+        <span class="record-data">57:30</span>
+        <span class="rec-stats">Темп: 2:43 мин/км | Скорость: 22.0 км/ч</span>
+        <p>Йомиф Кеджелча (Эфиопия), Валенсия, 2024</p>
+    </div>
+
+    <div class="record-item">
+        <span class="rec-dist">42.2 КМ (Марафон)</span>
+        <span class="record-data">2:00:35</span>
+        <span class="rec-stats">Темп: 2:51 мин/км | Скорость: 21.0 км/ч</span>
+        <p>Келвин Киптум (Кения), Чикаго, 2023</p>
+    </div>
+
+</section>
 
   <script src="script.js"></script>
 </body>

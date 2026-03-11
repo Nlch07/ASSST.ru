@@ -1,108 +1,230 @@
+/* ============================================================
+   1. ПУЛЬТ УПРАВЛЕНИЯ ЦВЕТАМИ (Все цвета здесь)
+   ============================================================ */
+
+:root {
+  /* СВЕТЛАЯ ТЕМА */
+  --bg-color: white;        
+  --text-main: #000000;       
+  --text-grey: #888888;       
+  --border: #f0f0f0;          
+  /* ОБЩИЙ ЦВЕТ ДЛЯ БЛОКОВ И ВСЕХ КНОПОК */
+  --card-bg: #e4e4e4;         
+  --sep-color: #ccc;          
+}
+
+body.dark-theme {
+  /* ТЕМНАЯ ТЕМА */
+  --bg-color: black;        
+  --text-main: #e0e0e0;       
+  --text-grey: #888888;       
+  --border: #222222;          
+  /* ОБЩИЙ ЦВЕТ ДЛЯ БЛОКОВ И ВСЕХ КНОПОК */
+  --card-bg: #2e2e2e;         
+}
+
+/* ============================================================
+   2. ПРИМЕНЕНИЕ ЦВЕТОВ (Универсальные правила)
+   ============================================================ */
+
+/* ВСЕ ТРИ КНОПКИ (Тема, Язык, КМ) — делаем одинаковыми везде */
+.control-btn, 
+#themeToggle, 
+#langToggle, 
+.unit-button {
+  background-color: var(--card-bg) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border) !important;
+  transition: 0.3s ease;
+}
+
+/* Карточки дистанций */
+.stat-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+}
+
+/* Настройки текста для ТЕМНОЙ ТЕМЫ */
+body.dark-theme input {
+  color: var(--text-main);
+  border-bottom-color: #333;
+}
+
+body.dark-theme .label, 
+body.dark-theme .input-sep, 
+body.dark-theme .unit,
+body.dark-theme .val,
+body.dark-theme .input-hint,
+body.dark-theme .pace-info h3,
+body.dark-theme .records-info h3,
+body.dark-theme .record-data,
+body.dark-theme .info-data {
+  color: var(--text-main) !important;
+}
+
+body.dark-theme .stat-val { color: var(--text-main); }
+body.dark-theme .stat-label { color: var(--text-grey); }
+body.dark-theme .reset-action { color: var(--text-grey); }
+
+/* ============================================================
+   3. ОСНОВНАЯ СТРУКТУРА И ВЕРСТКА (Не меняем, только чистим)
+   ============================================================ */
+
 body {
-  background: white;
+  background: var(--bg-color);
+  color: var(--text-main);
   font-family: -apple-system, system-ui, sans-serif;
   margin: 0; padding: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.controls-panel {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.control-btn {
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.control-btn:hover { border-color: var(--text-main); }
+
+/* Специфические настройки кнопок управления */
+#themeToggle, #langToggle {
+  background-color: #f5f5f7; /* Начальный цвет для светлой темы */
+  color: #1c1c1e;
+  transition: 0.3s;
+}
+
+#langToggle {
+  background-color: #ececec;
+  color: #1b1a1a;
 }
 
 .main-title {
-  font-size: 36px; /* Было 40px */
+  font-size: 36px;
   text-align: center;
   margin: 70px 0 20px;
   font-weight: bold;
 }
 
 .container {
-  margin-top: 110px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
 }
 
-.input-hint { font-size: 13px; color: #888; text-align: center; margin-bottom: 0px;}
-
+.input-hint { font-size: 13px; color: var(--text-grey); text-align: center; margin-bottom: 0px;}
 .row { display: flex; justify-content: center; gap: 10px; }
 
-/* Уменьшенные поля ввода времени */
 input {
-  font-size: 44px; /* Было 55px */
+  font-size: 44px;
   text-align: center;
   border: none;
   background: none;
-  color: #000; /* Черный вместо синего */
+  color: var(--text-main);
   font-weight: bold;
   outline: none;
   width: 90px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--border);
 }
 
-input:focus { border-bottom-color: #000; }
+input:focus { border-bottom-color: var(--text-main); }
 
-.input-sep { font-size: 40px; color: #ccc; font-weight: bold; margin-top: -5px;}
-
+.input-sep { font-size: 40px; color: var(--sep-color); font-weight: bold; margin-top: -5px;}
 #distance { width: 140px; margin-top: 5px;}
-
-.label { font-size: 20px; font-weight: bold; color: black; margin-left: -5px; padding-top: 15px;}
+.label { font-size: 20px; font-weight: bold; color: var(--text-main); margin-left: -5px; padding-top: 15px;}
 
 .unit-button {
-  background: #000; color: white; border: none; border-radius: 6px;
+  background: var(--unit-btn-bg);
+  color: var(--unit-btn-text);
+  border: none; border-radius: 6px;
   padding: 8px 15px; font-size: 18px; font-weight: bold; cursor: pointer;
 }
 
-/* Результат (чистый, черно-белый) */
 .result { text-align: center; margin-top: 30px; }
-
 .res-row { margin-bottom: 10px; }
+.val { font-size: 50px; font-weight: bold; color: var(--text-main); }
+#speedOut { font-size: 36px; }
+.unit { color: var(--text-main); font-size: 20px; margin-left: 5px; }
 
-.val {
-  color: #000; /* Черный */
-  font-size: 50px; /* Было 60px */
-  font-weight: bold;
-}
-
-#speedOut { font-size: 36px; } /* Скорость км/ч меньше темпа */
-
-.unit { color: #000; font-size: 20px; margin-left: 5px; }
-
-/* Сетка прогнозов (черно-белая) */
 .stats-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
   width: 100%; max-width: 300px; margin-top: 20px;
 }
 
 .stat-box {
-  background: #f8f9fa; padding: 10px; border-radius: 8px;
+  background: var(--card-bg);
+  padding: 10px; border-radius: 8px;
   display: flex; flex-direction: column; align-items: center;
 }
 
+.stat-label { font-size: 11px; color: var(--text-grey); }
+.stat-val { font-size: 16px; font-weight: bold; color: var(--text-main); }
+
 .reset-action {
-    margin-top: 25px;      /* Отступ сверху от таблицы */
-    font-size: 13px;       /* Небольшой размер, чтобы не отвлекать */
-    font-weight: 900;      /* Твой любимый жирный шрифт */
-    color: #888;           /* Серый цвет (в покое) */
-    text-transform: uppercase; /* Все буквы большие */
-    letter-spacing: 2px;   /* Расстояние между буквами для стиля */
-    cursor: pointer;       /* Чтобы при наведении был "пальчик" */
-    text-align: center;    /* Центрируем */
-    transition: 0.2s;      /* Плавный переход цвета */
+  margin-top: 25px;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--text-grey);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s;
+}
+.reset-action:active { color: var(--text-main); transform: scale(0.95); }
+
+/* --- СПРАВОЧНЫЙ БЛОК --- */
+.pace-info, .records-info {
+  width: 100%;
+  max-width: 340px;
+  margin: 40px auto 0;
+  padding: 20px;
+  border-top: 2px solid var(--border);
+  text-align: left;
+  box-sizing: border-box;
 }
 
-.reset-action:active {
-    color: #000;           /* При нажатии становится черной (или белой в темной теме) */
-    transform: scale(0.95); /* Эффект легкого сжатия при клике */
+.pace-info h3, .records-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 10px 0 20px 0;
 }
 
-.stat-label { font-size: 11px; color: #888; }
+.info-block, .record-item { margin-bottom: 30px; }
+.info-label, .rec-dist {
+  display: block; font-size: 11px; font-weight: bold;
+  color: #aaa; text-transform: uppercase; margin-bottom: 2px;
+}
 
-.stat-val { font-size: 16px; font-weight: bold; color: #333; }
+.info-data, .record-data {
+  display: block; font-size: 24px; font-weight: bold;
+  color: var(--text-main) !important;
+  letter-spacing: -0.5px; line-height: 1.2;
+}
 
-/* Шапка и Меню (стандартные, черно-белые) */
-.burger-header { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: white; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box; z-index: 1000; }
-.menu-logo { font-weight: 900; color: #000; font-size: 24px; margin-left: 10px; }
-.burger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 5px; }
-.burger-line { width: 25px; height: 3px; background: #000; }
-.menu-items { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background: white; transform: translateX(-100%); transition: 0.3s; z-index: 999; padding-top: 80px;}
-.menu-items.show { transform: translateX(0); }
-.ss { padding: 0 25px 20px; font-weight: bold; font-size: 24px; color: #000; }
-.menu-item { padding: 15px 25px; font-size: 18px; border-bottom: 1px solid #f9f9f9; }
-.menu-item.active { color: #000; font-weight: bold; background: #f0f6ff; }
+.rec-stats {
+  display: block; font-size: 12px; font-weight: bold;
+  color: #aaa; text-transform: uppercase;
+  margin: 4px 0; letter-spacing: 0.2px;
+}
+
+.info-block p, .record-item p {
+  font-size: 13px; line-height: 1.5; color: #777; margin: 2px 0 0 0;
+}
