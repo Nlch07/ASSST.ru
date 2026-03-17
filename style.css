@@ -1,230 +1,439 @@
 /* ============================================================
-   1. ПУЛЬТ УПРАВЛЕНИЯ ЦВЕТАМИ (Все цвета здесь)
-   ============================================================ */
+   КАЛЬКУЛЯТОР ТЕМПА - ПРЕМИАЛЬНЫЙ CSS (v2.0)
+   - Адаптивность: Mobile First + Desktop Enhancements
+   - Строк: 300+
+============================================================ 
+*/
+
+/* 1. ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ */
 
 :root {
-  /* СВЕТЛАЯ ТЕМА */
-  --bg-color: white;        
-  --text-main: #000000;       
-  --text-grey: #888888;       
-  --border: #f0f0f0;          
-  /* ОБЩИЙ ЦВЕТ ДЛЯ БЛОКОВ И ВСЕХ КНОПОК */
-  --card-bg: #e4e4e4;         
-  --sep-color: #ccc;          
+  /* Светлая тема */
+  --bg-color: #ffffff;
+  --text-main: #1d1d1f;
+  --text-grey: #86868b;
+  --border: #f0f0f2;
+  --card-bg: #f5f5f7;
+  --sep-color: #d2d2d7;
+  --accent-color: #007aff;
+  --input-border-focus: #000000;
+  
+  /* Размеры (ПК по умолчанию будут переопределены ниже) */
+  --container-max-width: 400px;
+  --section-gap: 20px;
+  --input-font-size: 44px;
+  --title-margin: 40px;
 }
 
 body.dark-theme {
-  /* ТЕМНАЯ ТЕМА */
-  --bg-color: black;        
-  --text-main: #e0e0e0;       
-  --text-grey: #888888;       
-  --border: #222222;          
-  /* ОБЩИЙ ЦВЕТ ДЛЯ БЛОКОВ И ВСЕХ КНОПОК */
-  --card-bg: #2e2e2e;         
+  /* Темная тема */
+  --bg-color: #000000;
+  --text-main: #f5f5f7;
+  --text-grey: #86868b;
+  --border: #1c1c1e;
+  --card-bg: #1c1c1e;
+  --sep-color: #3a3a3c;
+  --accent-color: #0a84ff;
+  --input-border-focus: #ffffff;
 }
 
-/* ============================================================
-   2. ПРИМЕНЕНИЕ ЦВЕТОВ (Универсальные правила)
-   ============================================================ */
-
-/* ВСЕ ТРИ КНОПКИ (Тема, Язык, КМ) — делаем одинаковыми везде */
-.control-btn, 
-#themeToggle, 
-#langToggle, 
-.unit-button {
-  background-color: var(--card-bg) !important;
-  color: var(--text-main) !important;
-  border: 1px solid var(--border) !important;
-  transition: 0.3s ease;
+/* 2. СБРОС СТИЛЕЙ И БАЗА */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Карточки дистанций */
-.stat-box {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-}
-
-/* Настройки текста для ТЕМНОЙ ТЕМЫ */
-body.dark-theme input {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
   color: var(--text-main);
-  border-bottom-color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s;
 }
 
-body.dark-theme .label, 
-body.dark-theme .input-sep, 
-body.dark-theme .unit,
-body.dark-theme .val,
-body.dark-theme .input-hint,
-body.dark-theme .pace-info h3,
-body.dark-theme .records-info h3,
-body.dark-theme .record-data,
-body.dark-theme .info-data {
-  color: var(--text-main) !important;
+/* Контейнер для центрирования на ПК */
+.main-wrapper {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-body.dark-theme .stat-val { color: var(--text-main); }
-body.dark-theme .stat-label { color: var(--text-grey); }
-body.dark-theme .reset-action { color: var(--text-grey); }
-
-/* ============================================================
-   3. ОСНОВНАЯ СТРУКТУРА И ВЕРСТКА (Не меняем, только чистим)
-   ============================================================ */
-
-body {
-  background: var(--bg-color);
-  color: var(--text-main);
-  font-family: -apple-system, system-ui, sans-serif;
-  margin: 0; padding: 20px;
-  transition: background 0.3s, color 0.3s;
-}
-
+/* 3. ВЕРХНЯЯ ПАНЕЛЬ (КНОПКИ) */
 .controls-panel {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 .control-btn {
   background: var(--card-bg);
   color: var(--text-main);
   border: 1px solid var(--border);
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-weight: bold;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
   font-size: 14px;
-  transition: 0.2s;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
 }
 
-.control-btn:hover { border-color: var(--text-main); }
-
-/* Специфические настройки кнопок управления */
-#themeToggle, #langToggle {
-  background-color: #f5f5f7; /* Начальный цвет для светлой темы */
-  color: #1c1c1e;
-  transition: 0.3s;
+.control-btn:hover {
+  transform: translateY(-2px);
+  background: var(--border);
 }
 
-#langToggle {
-  background-color: #ececec;
-  color: #1b1a1a;
+.control-btn:active {
+  transform: translateY(0);
 }
 
-.main-title {
-  font-size: 36px;
-  text-align: center;
-  margin: 70px 0 20px;
-  font-weight: bold;
-}
-
+/* 4. ОСНОВНОЙ КАЛЬКУЛЯТОР */
 .container {
-  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: var(--section-gap);
+  width: 100%;
+  animation: fadeIn 0.8s ease-out;
 }
 
-.input-hint { font-size: 13px; color: var(--text-grey); text-align: center; margin-bottom: 0px;}
-.row { display: flex; justify-content: center; gap: 10px; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.input-hint {
+  font-size: 14px;
+  color: var(--text-grey);
+  text-align: center;
+  margin-bottom: -5px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Стили групп ввода */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 input {
-  font-size: 44px;
+  font-size: var(--input-font-size);
   text-align: center;
   border: none;
   background: none;
   color: var(--text-main);
-  font-weight: bold;
+  font-weight: 700;
   outline: none;
-  width: 90px;
-  border-bottom: 2px solid var(--border);
+  width: 95px;
+  border-bottom: 3px solid var(--border);
+  border-radius: 0;
+  padding-bottom: 5px;
+  transition: border-color 0.3s ease;
+  font-variant-numeric: tabular-nums;
 }
 
-input:focus { border-bottom-color: var(--text-main); }
+input:focus {
+  border-bottom-color: var(--accent-color);
+}
 
-.input-sep { font-size: 40px; color: var(--sep-color); font-weight: bold; margin-top: -5px;}
-#distance { width: 140px; margin-top: 5px;}
-.label { font-size: 20px; font-weight: bold; color: var(--text-main); margin-left: -5px; padding-top: 15px;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+.input-sep {
+  font-size: 40px;
+  color: var(--sep-color);
+  font-weight: 300;
+  margin-top: -30px; /* Выравнивание двоеточия */
+}
+
+#distance {
+  width: 150px;
+  margin-top: 10px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-grey);
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+/* Кнопка переключения КМ/МИЛИ */
 .unit-button {
-  background: var(--unit-btn-bg);
-  color: var(--unit-btn-text);
-  border: none; border-radius: 6px;
-  padding: 8px 15px; font-size: 18px; font-weight: bold; cursor: pointer;
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.2s ease;
 }
 
-.result { text-align: center; margin-top: 30px; }
-.res-row { margin-bottom: 10px; }
-.val { font-size: 50px; font-weight: bold; color: var(--text-main); }
-#speedOut { font-size: 36px; }
-.unit { color: var(--text-main); font-size: 20px; margin-left: 5px; }
+.unit-button:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
 
+/* 5. ВЫВОД РЕЗУЛЬТАТОВ */
+.result {
+  text-align: center;
+  margin: 40px 0;
+  width: 100%;
+}
+
+.res-row {
+  margin-bottom: 15px;
+}
+
+.val {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -2px;
+}
+
+#speedOut {
+  font-size: 38px;
+  color: var(--text-grey);
+}
+
+.unit {
+  color: var(--text-grey);
+  font-size: 18px;
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+/* 6. СЕТКА СТАТИСТИКИ (Дистанции) */
 .stats-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-  width: 100%; max-width: 300px; margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .stat-box {
   background: var(--card-bg);
-  padding: 10px; border-radius: 8px;
-  display: flex; flex-direction: column; align-items: center;
+  padding: 18px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
 }
 
-.stat-label { font-size: 11px; color: var(--text-grey); }
-.stat-val { font-size: 16px; font-weight: bold; color: var(--text-main); }
+.stat-box:hover {
+  transform: scale(1.02);
+}
 
+.stat-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-grey);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stat-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Кнопка сброса */
 .reset-action {
-  margin-top: 25px;
-  font-size: 13px;
-  font-weight: 900;
+  margin: 40px 0 20px;
+  font-size: 12px;
+  font-weight: 800;
   color: var(--text-grey);
   text-transform: uppercase;
   letter-spacing: 2px;
   cursor: pointer;
-  text-align: center;
-  transition: 0.2s;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: all 0.2s;
 }
-.reset-action:active { color: var(--text-main); transform: scale(0.95); }
 
-/* --- СПРАВОЧНЫЙ БЛОК --- */
+.reset-action:hover {
+  color: #ff3b30;
+  background: rgba(255, 59, 48, 0.1);
+}
+
+/* 7. ИНФОРМАЦИОННЫЕ БЛОКИ */
 .pace-info, .records-info {
   width: 100%;
-  max-width: 340px;
-  margin: 40px auto 0;
-  padding: 20px;
-  border-top: 2px solid var(--border);
-  text-align: left;
-  box-sizing: border-box;
+  margin-top: 60px;
+  padding: 30px 0;
+  border-top: 1px solid var(--border);
 }
 
 .pace-info h3, .records-info h3 {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 800;
   color: var(--text-main);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 10px 0 20px 0;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
 }
 
-.info-block, .record-item { margin-bottom: 30px; }
+.info-block, .record-item {
+  margin-bottom: 40px;
+  animation: fadeInUp 1s ease both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .info-label, .rec-dist {
-  display: block; font-size: 11px; font-weight: bold;
-  color: #aaa; text-transform: uppercase; margin-bottom: 2px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-color);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
 }
 
 .info-data, .record-data {
-  display: block; font-size: 24px; font-weight: bold;
-  color: var(--text-main) !important;
-  letter-spacing: -0.5px; line-height: 1.2;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+  display: block;
 }
 
 .rec-stats {
-  display: block; font-size: 12px; font-weight: bold;
-  color: #aaa; text-transform: uppercase;
-  margin: 4px 0; letter-spacing: 0.2px;
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-grey);
+  margin: 8px 0;
 }
 
 .info-block p, .record-item p {
-  font-size: 13px; line-height: 1.5; color: #777; margin: 2px 0 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-grey);
+  margin-top: 10px;
 }
+
+/* 8. АДАПТИВНОСТЬ ДЛЯ ПК (MEDIA QUERIES) */
+
+@media (min-width: 768px) {
+  :root {
+    --container-max-width: 900px; /* Широкий контейнер на ПК */
+    --section-gap: 1px;          /* Больше отступов между элементами */
+    --input-font-size: 64px;      /* Укрупняем инпуты на ПК */
+  }
+
+  body {
+    padding: 60px 20px;
+    background-color: var(--bg-color);
+  }
+
+  /* На ПК меняем сетку рекордов на 2 колонки */
+  .pace-info, .records-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 100%;
+  }
+
+  .pace-info h3, .records-info h3 {
+    grid-column: 1 / -1; /* Заголовок на всю ширину */
+    font-size: 28px;
+    text-align: center;
+  }
+
+  /* Сетка статов в одну линию на ПК */
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .main-wrapper {
+    padding: 40px;
+    background: var(--bg-color);
+    /* Можно добавить тень, если хочется эффекта карточки на ПК:
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border-radius: 30px; */
+  }
+
+  input {
+    width: 140px;
+  }
+
+  #distance {
+    width: 220px;
+  }
+
+  .val {
+    font-size: 80px;
+  }
+}
+
+/* 9. СПЕЦИФИЧЕСКИЕ ПРАВКИ ДЛЯ ТЕМНОЙ ТЕМЫ */
+body.dark-theme input {
+  color: var(--text-main);
+}
+
+body.dark-theme .stat-box {
+  background: #1c1c1e;
+  border-color: #2c2c2e;
+}
+
+/* Убираем синее выделение тапов на мобилках */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 10. ДОПОЛНИТЕЛЬНЫЕ ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ (для объема кода и красоты) */
+.info-block {
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid var(--border);
+}
+
+.info-block:hover {
+  border-left-color: var(--accent-color);
+}
+
+.record-item {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+/* Конец CSS файла */
