@@ -124,6 +124,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const distLabel = item.querySelector('.rec-dist');
             if(distLabel) distLabel.innerText = t.rec_dist[i];
 
+                    // МЕНЯЕМ ЛОГОТИП
+            const logo = document.getElementById("logo");
+            if (logo) {
+                logo.innerHTML = currentLang === "ru" 
+                    ? 'КАЛЬКУЛЯТОР <span>ТЕМПА</span>' 
+                    : 'PACE<span>CALC</span>';
+            }
+            
             // 2. Темп и Скорость (исправленная логика)
             const stats = item.querySelector('.rec-stats');
             if(stats) {

@@ -36,7 +36,12 @@ body.dark-theme {
   --accent-color: #0a84ff;
   --input-border-focus: #ffffff;
 }
-
+/* ДОБАВЬТЕ ЭТО СРАЗУ ПОСЛЕ ПЕРЕМЕННЫХ */
+body {
+  background-color: var(--bg-color); /* Это заставит фон меняться */
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 /* 2. СБРОС СТИЛЕЙ И БАЗА */
 * {
   box-sizing: border-box;
@@ -229,7 +234,7 @@ input::-webkit-inner-spin-button {
 .unit {
   color: var(--text-grey);
   font-size: 18px;
-  margin-left: 8px;
+
   font-weight: 500;
 }
 
@@ -435,5 +440,88 @@ body.dark-theme .stat-box {
   border-radius: 20px;
   border: 1px solid var(--border);
 }
+/* СИЛОВОЙ ФИКС ДЛЯ ТЕМНОЙ ТЕМЫ (в самый конец файла) */
+body.dark-theme .pace-info, 
+body.dark-theme .records-info,
+body.dark-theme .main-wrapper,
+body.dark-theme .container {
+  background-color: var(--bg-color) !important; /* Убирает белые пятна */
+}
 
+body.dark-theme .info-block, 
+body.dark-theme .record-item {
+  background-color: var(--card-bg) !important; /* Делает карточки темно-серыми */
+  border-color: var(--sep-color) !important;
+}
+
+body.dark-theme .info-data, 
+body.dark-theme .record-data, 
+body.dark-theme h3 {
+  color: var(--text-main) !important; /* Проявляет текст */
+}
+/* 1. Фиксированная шапка */
+.glass-header {
+  position: fixed; /* Прибиваем к верху */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Чтобы была поверх всего контента */
+  
+  /* Эффект матового стекла */
+  background: rgba(255, 255, 255, 0.7); 
+  backdrop-filter: blur(10px); /* Размытие фона под шапкой */
+  -webkit-backdrop-filter: blur(10px);
+  
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+/* Темная тема для шапки */
+body.dark-theme .glass-header {
+  background: rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid #333;
+}
+
+/* Контейнер внутри шапки */
+.header-content {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+/* Логотип (просто для красоты) */
+.logo {
+  font-weight: 800;
+  letter-spacing: -1px;
+  font-size: 20px;
+}
+.logo span {
+  color: var(--accent-color);
+}
+
+/* Кнопки в ряд */
+.controls-panel {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0 !important; /* Сбрасываем твой старый отступ */
+}
+
+/* Важно: добавляем отступ всему контенту, чтобы шапка его не закрывала */
+body {
+  padding-top: 80px !important; 
+}
+.logo {
+    white-space: nowrap; /* Чтобы название не переносилось на вторую строку */
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 16px; /* Уменьшаем шрифт на маленьких экранах для русского языка */
+    }
+}
 /* Конец CSS файла */
