@@ -9,7 +9,6 @@
 
 :root {
   /* Светлая тема */
-  --bg-color: #ffffff;
   --text-main: #1d1d1f;
   --text-grey: #86868b;
   --border: #f0f0f2;
@@ -41,7 +40,9 @@ body {
   background-color: var(--bg-color); /* Это заставит фон меняться */
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 0; /* Убираем лишние отступы, которые создают белизну */
 }
+
 /* 2. СБРОС СТИЛЕЙ И БАЗА */
 * {
   box-sizing: border-box;
